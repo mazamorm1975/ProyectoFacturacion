@@ -6,14 +6,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function MyApp() {
 
-    const [userItems, handlerUserRegistration, handleUserUpdate] = useUserInfo();
+    const [userItems, handlerUserRegistration, handleUserUpdate, handlerUserDeletion] = useUserInfo();
 
     return (
         <>
             <UserRoutes
                 handleUserUpdate={handleUserUpdate}
+                handlerUserDeletion={handlerUserDeletion}
                 handlerUserRegistration={handlerUserRegistration}
-                userItems={userItems}/>
+                userItems={userItems}
+                                />
             <ToastContainer position='bottom-right' autoClose={3000} />
         </>
     )

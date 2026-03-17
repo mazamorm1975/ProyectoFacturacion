@@ -2,14 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { Navbar } from './Navbar';
+import { toast } from "react-toastify";
 
+export const ListadoView = ({ articulos, onDeleteUser }) => {
 
-export const ListadoView = ({ articulos }) => {
   const navigate = useNavigate();
 
   const handleActualizar = (id) => {
     navigate(`/editar/${id}`);
   };
+
+  const handleEliminar = async (id) => {
+    try {
+      await onDeleteUser(id);
+      return { success: true };
+    } catch (err) {
+      console.error('Error capturado en hook:', err.message || err);
+      toast.error(`Error: ${err.message}`);
+      return { success: false };
+    }
+  };
+
 
   return (
     <>
@@ -36,12 +49,15 @@ export const ListadoView = ({ articulos }) => {
               <td>{art.telefono}</td>
               <td>{art.email}</td>
               <td>
-                <Button 
-                  variant='info' 
+                <Button
+                  variant='info'
                   onClick={() => handleActualizar(art.id)}
                 >
                   Actualizar
                 </Button>
+              </td>
+              <td>
+                <Button variant='danger' onClick={() => handleEliminar(art.id)}>Eliminar</Button>
               </td>
             </tr>
           ))

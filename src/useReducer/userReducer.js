@@ -24,7 +24,9 @@ export const userReducer = (state = [], action) => {
         case userSetList:
             return action.payload || [];
 
+
         case userDeletion:
+            return state.filter((user) => user.id !== action.payload);
 
         default:
             return state;

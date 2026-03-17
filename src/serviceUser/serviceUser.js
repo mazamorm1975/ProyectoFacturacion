@@ -105,3 +105,24 @@ export const userUpdateIntoDB = async (id, datosUsuario) => {
     }
 
 }
+
+
+export const userDeletionRegistry = async (id) => {
+
+    try {
+        const userId = Number(id);
+        if (!Number.isInteger(userId)  || Number.id <= 0) {
+            throw new Error('Numero no existente');
+        }
+        const serviceDeleteResponse = await fetch(`${API_URL}/borrarUsuario/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json'
+            }
+
+        });
+
+    } catch (error) {
+        console.error(`Error al intentar borrar usuario`, error);
+    }
+}
